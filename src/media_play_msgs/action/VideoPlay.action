@@ -1,0 +1,20 @@
+string command
+string expression_name
+string video_path
+string subtitle_text
+bool loop
+float32 max_duration
+bool restore_default
+string default_expression
+---
+bool success
+bool cancelled
+string message
+string final_expression
+---
+string current_video
+string status
+float32 position
+float32 duration
+float32 progress
+bool subtitle_visible

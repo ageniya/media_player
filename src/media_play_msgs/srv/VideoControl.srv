@@ -1,0 +1,10 @@
+string command
+string video_path
+bool loop
+float32 position
+int32 volume
+---
+bool success
+string message
+string current_video
+string status
