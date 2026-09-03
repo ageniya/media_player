@@ -1,0 +1,21 @@
+[Unit]
+Description=media_play ROS 2 video playback and upload service
+After=network-online.target display-manager.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=nav01
+Group=nav01
+WorkingDirectory=/home/nav01/media_play_ros2_v2.0.0
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/run/user/1000/gdm/Xauthority
+Environment=PYTHONUNBUFFERED=1
+Environment=MEDIA_PLAY_VIDEO_DIR=/home/nav01/media_play/videos
+Environment=MEDIA_PLAY_UPLOAD_PORT=8766
+ExecStart=/bin/bash -lc 'source /etc/nav01/Middleware.env && source /home/nav01/media_play_ros2_v2.0.0/install/setup.bash && exec ros2 launch media_play media_play.launch.py video_dir:=/home/nav01/media_play/videos'
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=graphical.target
