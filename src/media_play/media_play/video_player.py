@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""ROS 2 Humble video player backed by mpv JSON IPC."""
+"""ROS 2 Jazzy video player backed by mpv JSON IPC."""
 
 import json
 import os

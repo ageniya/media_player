@@ -9,8 +9,8 @@ pipeline {
 
     agent {
         docker {
-            // ROS 2 Humble / Ubuntu 22.04 ARM64 构建环境
-            image '10.51.33.201:30002/navi_project/orin_humble_base:1.0.0'
+            // ROS 2 Jazzy / Ubuntu 24.04 ARM64 构建环境
+            image '10.51.33.201:30002/navi_project/orin_jazzy_base:1.0.0'
             label 'arm64-8-99'
             args '-u root --network=host --entrypoint=""'
         }
@@ -30,7 +30,7 @@ pipeline {
     environment {
         GITLAB_CREDS = 'gitlab_zhangjunjie'
         PACKAGE_NAME = 'media_play'
-        ROS_DISTRO = 'humble'
+        ROS_DISTRO = 'jazzy'
         BASE_VERSION = '2.0.0'
     }
 
@@ -76,7 +76,7 @@ pipeline {
                     safe_branch="$(printf '%s' "$branch" | tr -cd '[:alnum:].+-')"
                     [ -n "$safe_branch" ] || safe_branch=unknown
                     commit="$(git -C "$project" rev-parse --short=8 HEAD)"
-                    version="${BASE_VERSION}-${safe_branch}+${BUILD_NUMBER}-${commit}jammy"
+                    version="${BASE_VERSION}-${safe_branch}+${BUILD_NUMBER}-${commit}noble"
                     architecture="$(dpkg --print-architecture)"
 
                     build_deb() {
@@ -102,10 +102,10 @@ pipeline {
                         dpkg-deb --build "$stage" "$dist/${deb_package}_${version}_${architecture}.deb"
                     }
 
-                    build_deb media_play_msgs zj-humanoid-ros-humble-media-play-msgs '' \\
+                    build_deb media_play_msgs zj-humanoid-ros-jazzy-media-play-msgs '' \\
                         'ROS 2 interfaces for media_play'
-                    build_deb media_play zj-humanoid-ros-humble-media-play \\
-                        'zj-humanoid-ros-humble-media-play-msgs, mpv, python3-yaml' \\
+                    build_deb media_play zj-humanoid-ros-jazzy-media-play \\
+                        'zj-humanoid-ros-jazzy-media-play-msgs, mpv, python3-yaml' \\
                         'ROS 2 video playback, subtitle and upload service'
 
                     ls -lh "$dist"
